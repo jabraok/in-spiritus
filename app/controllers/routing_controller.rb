@@ -7,10 +7,6 @@ class RoutingController < ApplicationJsonApiResourcesController
     respone_data = send_routific_request request_data
 
     render json: respone_data
-    # @TODO
-    # Header quater address
-    # Default visit windows (min, max, service)
-    # Configurate Routific token and url
   end
 
   private
@@ -40,39 +36,43 @@ class RoutingController < ApplicationJsonApiResourcesController
                   .includes(:route_visits)
                   .find(route_plan_id)
 
+
     # Get visits of current route plan
-    route_plan.route_visits.each do |route_visit|
-      id = route_visit.hash_code
-      lat = route_visit.address.lat
-      lng = route_visit.address.lng
-      name = route_visit.address.street_and_city
+    route_plan
+      .route_visits
+      .order('position')
+      .each do |route_visit|
+        id = route_visit.id.to_s
+        lat = route_visit.address.lat
+        lng = route_visit.address.lng
+        name = route_visit.address.street_and_city
 
-      visit_windows = route_visit.visit_windows || OpenStruct.new({
-                                                      :min_formated => '06:00',
-                                                      :max_formated => '22:00',
-                                                      :service => 15
-                                                    })
-      start_time = visit_windows.min_formated
-      end_time = visit_windows.max_formated
-      duration = visit_windows.service
+        visit_windows = route_visit.visit_windows || OpenStruct.new({
+                                                        :min_formated => '06:00',
+                                                        :max_formated => '22:00',
+                                                        :service => 15
+                                                      })
+        start_time = visit_windows.min_formated
+        end_time = visit_windows.max_formated
+        duration = visit_windows.service
 
-      request_data[:network][id] = {
-        :lat => lat,
-        :lng => lng,
-        :name => name
-      }
-      request_data[:visits][id] = {
-        :start => start_time,
-        :end => end_time,
-        :duration => duration
-      }
-      request_data[:solution][:driver].push(id)
+        request_data[:network][id] = {
+          :lat => lat,
+          :lng => lng,
+          :name => name
+        }
+        request_data[:visits][id] = {
+          :start => start_time,
+          :end => end_time,
+          :duration => duration
+        }
+        request_data[:solution][:driver].push(id)
     end
     request_data
   end
 
   def send_routific_request data
-    token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1N2E5OTc2ZmJlMTY4NDZmMGEyZWJjZDAiLCJpYXQiOjE0NzA5NjgzODh9.n0RDGWq961MVr_rRPZ9g7JZUxwuPHBdob18OQUwktGE'
+    token = ENV['ROUTIFIC_API_KEY']
     uri = URI.parse("https://api.routific.com/min-idle")
     header = {
       'Content-Type': 'application/json',

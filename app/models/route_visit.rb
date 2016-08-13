@@ -36,8 +36,4 @@ class RouteVisit < ActiveRecord::Base
 	def has_route_plan?
 		has_route_plan.present?
 	end
-
-	def hash_code
-		position.to_s.gsub(/[.]/, '_')   
-	end
 end
