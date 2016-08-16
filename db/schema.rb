@@ -172,11 +172,13 @@ ActiveRecord::Schema.define(version: 20160717202524) do
   create_table "notification_rules", force: :cascade do |t|
     t.string   "first_name",  limit: 255
     t.string   "last_name",   limit: 255
-    t.string   "email",       limit: 255,                null: false
-    t.integer  "location_id",                            null: false
-    t.boolean  "enabled",                 default: true, null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.string   "email",       limit: 255,                 null: false
+    t.integer  "location_id",                             null: false
+    t.boolean  "enabled",                 default: true,  null: false
+    t.boolean  "wants_invoice",           default: false, null: false
+    t.boolean  "wants_credit",            default: false, null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
   end
 
   add_index "notification_rules", ["enabled"], name: "index_notification_rules_on_enabled", using: :btree
