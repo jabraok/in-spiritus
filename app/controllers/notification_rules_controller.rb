@@ -19,6 +19,11 @@ class NotificationRulesController < ApplicationJsonApiResourcesController
     super
   end
 
+   def destroy
+    authorize NotificationRule
+    super
+  end
+
   def get_related_resource
     authorize NotificationRule
     super
