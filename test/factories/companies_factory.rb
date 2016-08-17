@@ -8,7 +8,7 @@ FactoryGirl.define do
       xero_id { SecureRandom.hex(10) }
     end
 
-    factory :companie_with_locations do
+    factory :companies_with_locations do
       transient do
         location_count 5
       end

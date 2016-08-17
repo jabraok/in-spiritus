@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :order do
     delivery_date { Date.tomorrow }
+    location
 
     trait :pending do
       xero_state { Order.xero_states[:pending] }
@@ -47,50 +48,5 @@ FactoryGirl.define do
       end
     end
 
-    factory :sales_order_with_items_and_notification do
-      order_type Order::SALES_ORDER_TYPE
-
-      transient do
-        order_items_count 5
-        notification_items_count 5
-      end
-
-      before(:create) do |order, evaluator|
-        order.location = Location.all.sample
-      end
-
-      after(:create) do |order, evaluator|
-        create_list(:notification,
-          evaluator.notification_items_count,
-          order: order)
-
-        create_list(:order_item,
-          evaluator.order_items_count,
-          order: order)
-      end
-    end
-
-    factory :purchase_order_with_items_and_notifications do
-      order_type Order::PURCHASE_ORDER_TYPE
-
-      transient do
-        order_items_count 5
-        notification_items_count 5
-      end
-
-      before(:create) do |order, evaluator|
-        order.location = Location.all.sample
-      end
-
-      after(:create) do |order, evaluator|
-        create_list(:notification,
-          evaluator.notification_items_count,
-          order: order)
-
-        create_list(:order_item,
-          evaluator.order_items_count,
-          order: order)
-      end
-    end
   end
 end

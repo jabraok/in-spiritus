@@ -2,11 +2,8 @@ FactoryGirl.define do
   factory :route_visit do
     position 1
     route_plan
+    address
     date { Date.today}
-
-    before(:create) do |route_visit, evaluator|
-      route_visit.address = Address.all.sample
-    end
 
     trait :pending do
       route_visit_state { RouteVisit.route_visit_states[:pending] }
