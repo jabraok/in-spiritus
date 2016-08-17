@@ -48,5 +48,17 @@ FactoryGirl.define do
       end
     end
 
+    factory :orders_with_notifications do
+      order_type Order::PURCHASE_ORDER_TYPE
+
+      transient do
+        notification_items_count 5
+      end
+
+      after(:create) do |order, evaluator|
+        create_list(:notification, evaluator.notification_items_count, order: order)
+      end
+    end
+
   end
 end

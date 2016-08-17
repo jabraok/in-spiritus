@@ -9,7 +9,10 @@ FactoryGirl.create_list(:price_tier, 3, items: Item.products)
 
 FactoryGirl.create_list(:companies_with_locations, 20)
 
+FactoryGirl.create_list(:orders_with_notifications, 10)
 
+# create 10 customers
+# create 10 vendors
 
 # (0..20).each do |i|
 #   Company
