@@ -54,3 +54,10 @@ Company.vendor.each do |company|
       notification_rule: notification_rule)
   end
 end
+
+route_visits = RouteVisit.take(5)
+FactoryGirl.create_list(:route_plan,
+  1,
+  :published,
+  user: admin,
+  route_visits: route_visits)
