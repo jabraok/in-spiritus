@@ -56,8 +56,7 @@ Company.vendor.each do |company|
 end
 
 route_visits = RouteVisit.take(5)
-FactoryGirl.create_list(:route_plan,
-  1,
+FactoryGirl.create(:route_plan,
   :published,
   user: admin,
   route_visits: route_visits)
