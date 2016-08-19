@@ -30,4 +30,32 @@ module MailGunUtils
 	def email_updated_purchase_order(order, attachment)
 
 	end
+
+	def send_email(recipients, subject, body_html=nil, body_text=nil, attachments=[])
+		validate(recipients, subject, body_html, body_text, attachments)
+
+		mb_obj = Mailgun::MessageBuilder.new
+		mb_obj.from(ENV['SALES_FROM_EMAIL'], {"first"=>"Aram", "last" => "Zadikian"})
+
+		recipients.each do |r|
+			mb_obj.add_recipient(:to, r[:email], {"first"=>r[:first], "last" => r[:last]})
+		end
+
+		mb_obj.subject(subject)
+		mb_obj.body_html(body_html)
+		mb_obj.body_text(body_text)
+
+		attachments.each do |a|
+			mb_obj.add_attachment(a[:file_url], a[:file_name])
+		end
+
+		send_message mb_obj
+	end
+
+	private
+	def validate(recipients, subject, body_html, body_text, attachments)
+		raise "recipients can not empty" if recipients.nil? || !recipients.any?
+		raise "subject can not epty" if subject.empty?
+		raise "Both of body_html and body_text can not empty" if body_html.empty? && body_text.empty?
+	end
 end
