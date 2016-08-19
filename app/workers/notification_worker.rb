@@ -12,8 +12,6 @@ class NotificationWorker
            (n.has_credit? && n.notification_rule.wants_credit))
            send_notification n
         end
-
-        n.mark_processed!
       end
   end
 
@@ -40,5 +38,10 @@ class NotificationWorker
         mail_content[:subject],
         mail_content[:html],
         mail_content[:txt])
+
+    notification.processed_at = DateTime.now
+    notification.save
+    
+    notification.mark_processed!
   end
 end
