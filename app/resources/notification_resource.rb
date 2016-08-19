@@ -1,6 +1,7 @@
 class NotificationResource < JSONAPI::Resource
   attributes :processed_at,
-             :notification_state
+             :notification_state,
+             :renderer
 
   has_one :order
   has_one :credit_note
