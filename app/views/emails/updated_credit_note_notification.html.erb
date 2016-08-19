@@ -223,7 +223,7 @@
 														<tr>
 															<td style="font-family: Helvetica, arial, sans-serif; font-size: 16px; color: #666666; text-align:center; line-height: 30px;">
 																<p style="text-align: center;">
-																	Hello <%= 'Aram' %>, attached is a new Credit Note <strong><%= credit_note.credit_note_number %></strong> for pickup on: <strong><%= credit_note.date.strftime('%A, %d/%m/%y') %></strong>.
+																	Hello <%= 'Aram' %>, attached is a new Credit Note <strong><%= context[:credit_note].credit_note_number %></strong> for pickup on: <strong><%= context[:credit_note].date.strftime('%A, %d/%m/%y') %></strong>.
 																</p>
 																<p style="text-align: center;">
 																	Attached are the associated documents.
