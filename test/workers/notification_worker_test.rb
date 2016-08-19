@@ -45,7 +45,7 @@ class NotificationWorkerTest < ActiveSupport::TestCase
     end
 
     notification.reload
-    assert notification.pending?
+    assert notification.processed?
   end
 
   test "Should not send notification when processed" do

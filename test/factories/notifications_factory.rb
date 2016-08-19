@@ -8,12 +8,12 @@ FactoryGirl.define do
 
     factory :notification_with_sales_order do
       renderer "UpdatedSalesOrder"
-      order { :sales_order }
+      order { create(:order, :sales_order) }
     end
 
     factory :notification_with_purchase_order do
       renderer "UpdatedPurchaseOrder"
-      order { :purchase_order }
+      order { create(:order, :purchase_order) }
     end
 
     factory :notification_with_credit_note do

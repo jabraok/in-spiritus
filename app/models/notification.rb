@@ -30,4 +30,8 @@ class Notification < ActiveRecord::Base
   def has_credit?
     !credit_note.nil?
   end
+
+  def build_message
+    Maybe(renderer).constantize.new.render(self).fetch()
+  end
 end
