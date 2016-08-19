@@ -5,5 +5,6 @@ class NotificationResource < JSONAPI::Resource
 
   has_one :order
   has_one :credit_note
+  has_one :fulfillment
   has_one :notification_rule
 end

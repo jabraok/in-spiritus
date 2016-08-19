@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160819080952) do
+ActiveRecord::Schema.define(version: 20160819213143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,9 +193,11 @@ ActiveRecord::Schema.define(version: 20160819080952) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.string   "renderer",             default: "", null: false
+    t.integer  "fulfillment_id"
   end
 
   add_index "notifications", ["credit_note_id"], name: "index_notifications_on_credit_note_id", using: :btree
+  add_index "notifications", ["fulfillment_id"], name: "index_notifications_on_fulfillment_id", using: :btree
   add_index "notifications", ["notification_rule_id"], name: "index_notifications_on_notification_rule_id", using: :btree
   add_index "notifications", ["order_id"], name: "index_notifications_on_order_id", using: :btree
 
@@ -398,6 +400,7 @@ ActiveRecord::Schema.define(version: 20160819080952) do
   add_foreign_key "locations", "companies"
   add_foreign_key "notification_rules", "locations"
   add_foreign_key "notifications", "credit_notes"
+  add_foreign_key "notifications", "fulfillments"
   add_foreign_key "notifications", "notification_rules"
   add_foreign_key "notifications", "orders"
   add_foreign_key "order_items", "items"

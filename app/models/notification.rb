@@ -21,6 +21,7 @@ class Notification < ActiveRecord::Base
 
   belongs_to :order
   belongs_to :credit_note
+  belongs_to :fulfillment
   belongs_to :notification_rule
 
   def has_order?
