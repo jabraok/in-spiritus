@@ -16,6 +16,7 @@ module Clockwork
   every(10.seconds, ProcessStockLevelsWorker)
 
   every(5.seconds, EmailPurchaseOrdersWorker)
+  every(5.seconds, NotificationWorker)
 
   # every(1.hour, SyncRemoteItemsWorker)
   every(1.hour, SyncRemoteCompaniesWorker)
