@@ -31,14 +31,13 @@ module MailGunUtils
 
 	end
 
-	def send_email(recipients, subject, body_html=nil, body_text=nil, attachments=[])
-		validate(recipients, subject, body_html, body_text, attachments)
+	def send_email(from, recipients, subject, body_html=nil, body_text=nil, attachments=[])
 
 		mb_obj = Mailgun::MessageBuilder.new
-		mb_obj.from(ENV['SALES_FROM_EMAIL'], {"first"=>"Aram", "last" => "Zadikian"})
+		mb_obj.from(from[:email], {"first" => from[:first], "last" => from[:last]})
 
 		recipients.each do |r|
-			mb_obj.add_recipient(:to, r[:email], {"first"=>r[:first], "last" => r[:last]})
+			mb_obj.add_recipient(:to, r[:email], {"first" =>r [:first], "last" => r[:last]})
 		end
 
 		mb_obj.subject(subject)
@@ -50,12 +49,5 @@ module MailGunUtils
 		end
 
 		send_message mb_obj
-	end
-
-	private
-	def validate(recipients, subject, body_html, body_text, attachments)
-		raise "recipients can not empty" if recipients.nil? || !recipients.any?
-		raise "subject can not epty" if subject.empty?
-		raise "Both of body_html and body_text can not empty" if body_html.empty? && body_text.empty?
 	end
 end
