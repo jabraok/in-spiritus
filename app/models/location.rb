@@ -10,7 +10,7 @@ class Location < ActiveRecord::Base
 	has_many :credit_notes, :dependent => :destroy, autosave: true
 	has_many :stocks, :dependent => :destroy, autosave: true
 
-	has_many :notification_rules
+	has_many :notification_rules, :dependent => :destroy, autosave: true
 
 	has_many :visit_days, :dependent => :destroy, autosave: true
 	has_many :item_desires, :dependent => :destroy, autosave: true
