@@ -36,7 +36,7 @@ class Location < ActiveRecord::Base
 	private
 	def pre_process_code
 		generate_code unless valid_code?
-		self.code = self.code.downcase
+		self.code = code.downcase
 	end
 
 	def valid_code?

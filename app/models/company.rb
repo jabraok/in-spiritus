@@ -55,7 +55,7 @@ class Company < ActiveRecord::Base
   private
   def pre_process_location_code_prefix
     generate_prefix unless valid_prefix?
-    self.location_code_prefix = self.location_code_prefix.downcase
+    self.location_code_prefix = location_code_prefix.downcase
   end
 
   def valid_prefix?

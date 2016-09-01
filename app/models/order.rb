@@ -134,7 +134,7 @@ class Order < ActiveRecord::Base
   private
   def setup_defaults
     generate_order_number unless valid_order_number?
-    self.order_number = self.order_number.downcase
+    self.order_number = order_number.downcase
 
     set_default_shipping unless shipping.present?
   end
