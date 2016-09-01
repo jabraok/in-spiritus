@@ -12,7 +12,6 @@ FactoryGirl.create_list(:price_tier, 5, items: Item.product)
 FactoryGirl.create_list(:company_with_locations, 20)
 FactoryGirl.create_list(:company_with_locations, 5, :vendor)
 
-sequence_number = 1
 Company.customer.each do |company|
   company.locations.each do |location|
     notification_rule = FactoryGirl.create(
@@ -20,15 +19,11 @@ Company.customer.each do |company|
       location: location)
 
     5.times do
-      order_number = "SO-#{Date.tomorrow.strftime('%y%m%d')}-#{sequence_number}"
-      sequence_number += 1
-
       order = FactoryGirl.create(
         :order_with_items,
         :sales_order,
         items: Item.product,
-        location: location,
-        order_number: order_number)
+        location: location)
 
       FactoryGirl.create(
         :notification,
@@ -65,9 +60,6 @@ Company.vendor.each do |company|
       location: location)
 
     3.times do
-      order_number = "PO-#{Date.tomorrow.strftime('%y%m%d')}-#{sequence_number}"
-      sequence_number += 1
-
       order = FactoryGirl.create(
         :order_with_items,
         :purchase_order,
