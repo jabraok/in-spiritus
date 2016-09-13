@@ -12,7 +12,7 @@ class Log
 
   def self.alert message
     self.error message
-    self.alert_slack message
+    self.alert_slack message unless ENV["SLACK_CHANNEL_URL"].nil?
   end
 
   private
@@ -21,7 +21,7 @@ class Log
   end
 
   def self.alert_slack message
-    uri = URI.parse("https://hooks.slack.com/services/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")
+    uri = URI.parse(ENV["SLACK_CHANNEL_URL"])
     header = {
       'Content-Type': 'application/json'
     }
