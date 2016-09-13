@@ -51,4 +51,21 @@ class LocationTest < ActiveSupport::TestCase
     location2 = create(:location)
     assert_equal(location2.code, location2.code.downcase)
   end
+
+  test "returns stock level when get previous stock level" do
+    create_list(:item, 2, :product)
+    location = create(:location)
+
+    today = Date.today
+    3.times do |index|
+      date = today - index
+      stock = create(:stock_with_stock_levels, location: location, taken_at: date)
+
+      Item.all.each do |item|
+        create(:stock_level, stock: stock, item: item)
+      end
+    end
+
+    assert_equal(location.previous_stock_level, location2.code.downcase)
+  end
 end
