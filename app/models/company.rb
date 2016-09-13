@@ -56,10 +56,7 @@ class Company < ActiveRecord::Base
   private
   def pre_process_saving_data
     # Generate location code prefix
-    code_prefix = trim location_code_prefix
-    code_prefix = code_prefix.downcase unless code_prefix.nil?
-    self.location_code_prefix = code_prefix
-
+    self.location_code_prefix = trim_and_downcase location_code_prefix
     generate_prefix unless valid_prefix?
 
     # trim data

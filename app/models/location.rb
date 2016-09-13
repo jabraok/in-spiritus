@@ -52,10 +52,7 @@ class Location < ActiveRecord::Base
 	private
 	def pre_process_saving_data
 		# Generate location code
-    location_code = trim code
-    location_code = location_code.downcase unless location_code.nil?
-    self.code = location_code
-
+		self.code = trim_and_downcase code
 		generate_code unless valid_code?
 
 		# trim data

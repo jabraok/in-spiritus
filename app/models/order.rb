@@ -153,10 +153,7 @@ class Order < ActiveRecord::Base
   private
   def pre_process_saving_data
     # Generate order number
-    temp_order_number = trim order_number
-    temp_order_number = temp_order_number.downcase unless temp_order_number.nil?
-    self.order_number = temp_order_number
-
+    self.order_number = trim_and_downcase order_number
     generate_order_number unless valid_order_number?
 
     set_default_shipping unless shipping.present?
