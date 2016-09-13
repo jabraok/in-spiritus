@@ -21,7 +21,7 @@ class Log
   end
 
   def self.alert_slack message
-    uri = URI.parse("https://hooks.slack.com/services/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")
+    uri = URI.parse("https://hooks.slack.com/services/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")
     header = {
       'Content-Type': 'application/json'
     }
