@@ -1,5 +1,5 @@
 module Pdf
-  class RoutePlan
+  class RoutePlan < BasePdfRenderer
 
     def guide_y(y = @pdf.cursor)
       @pdf.stroke_axis(:at => [0, y], :height => 0, :step_length => 20, :negative_axes_length => 5, :color => '0000FF')
@@ -8,14 +8,11 @@ module Pdf
     def initialize(route_plan, pdf)
       @route_plan = route_plan
       @pdf = pdf
-      # @pdf.stroke_axis
+    end
 
-      header(720, route_plan)
-      body(680, route_plan)
-
-      # start_new_page if cursor < 175
-
-      # footer
+    def render_pdf
+      header(720, @route_plan)
+      body(680, @route_plan)
     end
 
     def header(start_y, route_plan)

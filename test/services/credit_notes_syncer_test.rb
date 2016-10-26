@@ -108,17 +108,6 @@ class CreditNotesSyncerTest < ActiveSupport::TestCase
     assert credit_note.credit_note_items.empty?, 'Credit note items found when expected none'
   end
 
-  test "should not create new credit note when credit total is 0" do
-    credit_note = create(:credit_note_with_credit_note_items, :submitted, unit_price:0, quantity:5)
-
-    syncer = CreditNotesSyncer.new
-
-    prepare_record_spy = Spy.on(syncer, :prepare_record)
-    syncer.sync_local
-
-    refute prepare_record_spy.has_been_called?, 'Should not have been prepared'
-  end
-
   test "should create new credit note when credit total is greater than 0" do
     credit_note = create(:credit_note_with_credit_note_items, :submitted, unit_price:10, quantity:5)
 

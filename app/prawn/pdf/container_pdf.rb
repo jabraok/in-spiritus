@@ -16,8 +16,12 @@ module Pdf
       # stroke_axis :step_length => 20
 
       conversions.each do |conversion|
-        conversion[:renderer].new(conversion[:data], @pdf)
-        @pdf.start_new_page unless conversion == conversions.last
+        renderer = conversion[:renderer].new(conversion[:data], @pdf)
+
+        if renderer.is_render_pdf? then
+          @pdf.start_new_page unless conversion == conversions.first
+          renderer.render_pdf
+        end
       end
     end
 

@@ -1,5 +1,5 @@
 module Pdf
-  class Invoice
+  class Invoice < BasePdfRenderer
 
     def guide_y(y = @pdf.cursor)
       @pdf.stroke_axis(:at => [0, y], :height => 0, :step_length => 20, :negative_axes_length => 5, :color => '0000FF')
@@ -12,14 +12,16 @@ module Pdf
     def initialize(order, pdf)
       @order = order
       @pdf = pdf
+    end
 
-      header(720, order)
-      body(590, order)
+    def render_pdf
+      header(720, @order)
+      body(590, @order)
 
       @pdf.start_new_page if @pdf.cursor < 175
 
       footer
-      pod(order)
+      pod(@order)
     end
 
     def header(start_y, order)

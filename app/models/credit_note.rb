@@ -34,7 +34,6 @@ class CreditNote < ActiveRecord::Base
 
   scope :with_credit, -> {
     joins(:credit_note_items)
-    .where('credit_note_items.quantity > ? AND credit_note_items.unit_price > ?', 0, 0)
     .distinct
   }
 

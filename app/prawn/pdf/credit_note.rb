@@ -1,5 +1,5 @@
 module Pdf
-  class CreditNote
+  class CreditNote < BasePdfRenderer
 
     def guide_y(y = @pdf.cursor)
       @pdf.stroke_axis(:at => [0, y], :height => 0, :step_length => 20, :negative_axes_length => 5, :color => '0000FF')
@@ -12,14 +12,22 @@ module Pdf
     def initialize(credit_note, pdf)
       @credit_note = credit_note
       @pdf = pdf
+    end
 
-      header(720, credit_note)
-      body(590, credit_note)
+    def is_render_pdf?
+      credit_note_items = @credit_note.credit_note_items
+                          .select{ |oi| oi.has_quantity? }
+      credit_note_items.present?
+    end
+
+    def render_pdf
+      header(720, @credit_note)
+      body(590, @credit_note)
 
       @pdf.start_new_page if @pdf.cursor < 175
 
       footer
-      pod(credit_note)
+      pod(@credit_note)
     end
 
     def header(start_y, credit_note)
