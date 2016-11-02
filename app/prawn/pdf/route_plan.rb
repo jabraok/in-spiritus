@@ -12,7 +12,12 @@ module Pdf
 
     def render_pdf
       header(720, @route_plan)
-      body(680, @route_plan)
+      build_route_visits(680, @route_plan)
+
+      @pdf.start_new_page
+
+      header(720, @route_plan)
+      build_item_information(680, @route_plan)
     end
 
     def header(start_y, route_plan)
@@ -32,7 +37,7 @@ module Pdf
       # guide_y
     end
 
-    def body(start_y, route_plan)
+    def build_route_visits(start_y, route_plan)
       @pdf.move_cursor_to start_y
 
       @pdf.move_down 5
@@ -43,7 +48,6 @@ module Pdf
           route_visit_row(route_visit, index)
         end
     end
-
 
     def route_visit_row(route_visit, index)
       y = @pdf.cursor
@@ -103,30 +107,63 @@ module Pdf
         end
 
       end
-
-
-
-      # @pdf.bounding_box([60, y], :width => 100, :height => height) do
-      #  @pdf.formatted_text_box [{ text: order_item.item.name, size: 9}], :align => :left, :valign => :center
-      # end
-      #
-      # @pdf.bounding_box([170, y], :width => 290, :height => height) do
-      #   desc = Maybe(order_item).item.description._.truncate(61)
-      #   @pdf.formatted_text_box [{ text: desc, size: 9}], :align => :left, :valign => :center
-      # end
-      #
-      # @pdf.bounding_box([450, y], :width => 35, :height => height) do
-      #  @pdf.formatted_text_box [{ text: order_item.unit_price.to_s, size: 9}], :align => :right, :valign => :center
-      # end
-      #
-      # @pdf.bounding_box([500, y], :width => 35, :height => height) do
-      #  @pdf.formatted_text_box [{ text: order_item.total.to_s, size: 9}], :align => :right, :valign => :center
-      # end
-
-      @pdf.move_down 4
-
-      @pdf.start_new_page if @pdf.cursor < 0
     end
+
+    def build_item_information(start_y, route_plan)
+      @pdf.move_cursor_to start_y
+
+      @pdf.move_down 5
+      route_plan
+        .route_visits
+        .sort {|x,y| x.position <=> y.position}
+        .flat_map(&:fulfillments)
+        .flat_map(&:order)
+        .select(&:sales_order?)
+        .select(&:has_quantity?)
+        .flat_map(&:order_items)
+        .reduce({}) {|acc, cur|
+          item = cur.item
+          prev_data = acc[item.id] || {qty:0, item:item}
+          prev_data[:qty] = prev_data[:qty] + cur.quantity
+          acc[item.id] = prev_data
+          acc
+        }
+        .map {|kv_pair| kv_pair[1]}
+        .sort {|x,y| Maybe(x[:item].position).fetch(10000) <=> Maybe(y[:item].position).fetch(10000)}
+        .each_with_index do |obj, index|
+          item_quantity_row(obj[:qty], obj[:item], index)
+        end
+      end
+
+      def item_quantity_row(qty, item, index)
+        y = @pdf.cursor
+        height = 17
+
+        @pdf.line_width = 0.5
+
+        @pdf.transparent(0.5) { @pdf.stroke_horizontal_line 0, 540, :at => y + 2 }
+
+        @pdf.bounding_box([-10, y], :width => 30, :height => height) do
+         @pdf.formatted_text_box [{ text: "#{index + 1}.", size: 8, styles: [:italic]}], :align => :right, :valign => :center
+        end
+
+        @pdf.bounding_box([20, y], :width => 30, :height => height) do
+         @pdf.formatted_text_box [{ text: qty.to_s, size: 11}], :align => :right, :valign => :center
+        end
+
+        @pdf.bounding_box([60, y], :width => 100, :height => height) do
+         @pdf.formatted_text_box [{ text: item.name, size: 9}], :align => :left, :valign => :center
+        end
+
+        @pdf.bounding_box([170, y], :width => 290, :height => height) do
+          desc = Maybe(item.description)._.truncate(61)
+          @pdf.formatted_text_box [{ text: desc, size: 9}], :align => :left, :valign => :center
+        end
+
+        @pdf.move_down 4
+
+        @pdf.start_new_page if @pdf.cursor < 20
+      end
 
   end
 end
