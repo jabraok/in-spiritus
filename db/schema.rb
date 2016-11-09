@@ -302,7 +302,7 @@ ActiveRecord::Schema.define(version: 20161109015351) do
   create_table "settings", force: :cascade do |t|
     t.string   "label",       null: false
     t.string   "key",         null: false
-    t.string   "description", null: false
+    t.string   "description"
     t.string   "value",       null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
