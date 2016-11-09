@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   jsonapi_resources :pods
   jsonapi_resources :orders
   jsonapi_resources :order_items
+  jsonapi_resources :settings
   jsonapi_resources :users
   jsonapi_resources :visit_days
   jsonapi_resources :visit_windows

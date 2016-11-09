@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161107130457) do
+ActiveRecord::Schema.define(version: 20161109015351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -298,6 +298,15 @@ ActiveRecord::Schema.define(version: 20161107130457) do
   add_index "route_visits", ["date"], name: "index_route_visits_on_date", using: :btree
   add_index "route_visits", ["route_plan_id"], name: "index_route_visits_on_route_plan_id", using: :btree
   add_index "route_visits", ["route_visit_state"], name: "index_route_visits_on_route_visit_state", using: :btree
+
+  create_table "settings", force: :cascade do |t|
+    t.string   "label",       null: false
+    t.string   "key",         null: false
+    t.string   "description", null: false
+    t.string   "value",       null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "stock_levels", force: :cascade do |t|
     t.integer  "starting",       default: 0, null: false

@@ -1,0 +1,2 @@
+class SettingPolicy < StandardPolicy
+end
