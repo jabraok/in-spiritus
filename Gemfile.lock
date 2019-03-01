@@ -1,15 +1,3 @@
-GIT
-  remote: https://github.com/waynerobinson/xeroizer
-  revision: d8f57f05655e5cff722af95e6e2e9e92c4a8fecc
-  specs:
-    xeroizer (2.16.4)
-      activesupport
-      builder (>= 2.1.2)
-      i18n
-      nokogiri
-      oauth (>= 0.4.5)
-      tzinfo
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -202,7 +190,7 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    oauth (0.5.1)
+    oauth (0.5.4)
     okcomputer (1.17.3)
     orm_adapter (0.5.0)
     os (0.9.6)
@@ -327,6 +315,13 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
+    xeroizer (2.18.1)
+      activesupport
+      builder (>= 2.1.2)
+      i18n
+      nokogiri
+      oauth (>= 0.4.5)
+      tzinfo
     zeus (0.15.10)
       method_source (>= 0.6.7)
 
@@ -381,7 +376,7 @@ DEPENDENCIES
   spy
   vcr
   webmock
-  xeroizer!
+  xeroizer
   zeus
 
 BUNDLED WITH
