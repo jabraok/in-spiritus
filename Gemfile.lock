@@ -783,8 +783,9 @@ GEM
     faraday (0.10.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.14)
-    firebase (0.2.6)
-      httpclient
+    firebase (0.2.8)
+      googleauth
+      httpclient (>= 2.5.3)
       json
     formatador (0.2.5)
     gist (4.5.0)
@@ -832,7 +833,7 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http_parser.rb (0.6.0)
-    httpclient (2.8.2.4)
+    httpclient (2.8.3)
     httplog (0.3.2)
       colorize
     hurley (0.2)
