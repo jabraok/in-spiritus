@@ -742,8 +742,7 @@ GEM
     builder (3.2.3)
     byebug (9.0.6)
     choice (0.2.0)
-    clockwork (2.0.0)
-      activesupport
+    clockwork (2.0.3)
       tzinfo
     coderay (1.1.1)
     colorize (0.8.1)
