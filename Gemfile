@@ -45,8 +45,7 @@ end
 group :development, :staging, :test do
   gem 'zeus'
   gem 'dotenv-rails'
-  gem 'factory_girl'
-  gem 'factory_girl_rails'
+  gem "factory_bot_rails"
   gem 'faker'
   gem 'gist'
   gem 'pry'

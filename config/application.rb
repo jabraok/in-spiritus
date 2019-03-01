@@ -34,7 +34,7 @@ module InSpiritus
     config.autoload_paths << "#{Rails.root}/app/resources/concerns"
 
     config.generators do |g|
-      g.factory_girl false
+      g.factory_bot false
     end
 
     config.time_zone = 'Pacific Time (US & Canada)'

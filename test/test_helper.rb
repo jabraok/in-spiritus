@@ -11,7 +11,7 @@ require 'spy/integration'
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
-  include FactoryGirl::Syntax::Methods
+  include FactoryBot::Syntax::Methods
 
   include Helpers::AuthenicationHelpers
   include Helpers::RequestHelpers
