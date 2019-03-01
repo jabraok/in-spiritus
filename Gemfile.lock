@@ -202,7 +202,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     oauth (0.5.1)
-    okcomputer (1.13.0)
+    okcomputer (1.17.3)
     orm_adapter (0.5.0)
     os (0.9.6)
     pdf-core (0.7.0)
