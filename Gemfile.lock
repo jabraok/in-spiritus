@@ -255,7 +255,7 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
-    redis (3.3.1)
+    redis (3.3.5)
     representable (2.3.0)
       uber (~> 0.0.7)
     responders (2.4.1)
@@ -367,7 +367,7 @@ DEPENDENCIES
   rails (= 4.2.8)
   rails-erd
   rake
-  redis (= 3.3.1)
+  redis
   rest-client
   sidekiq
   sidekiq-unique-jobs
