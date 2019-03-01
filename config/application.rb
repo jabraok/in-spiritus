@@ -13,7 +13,7 @@ module InSpiritus
 
     config.middleware.insert_before 0, "Rack::Cors", :debug => true, :logger => (-> { Rails.logger }) do
       allow do
-        origins '*'
+        origins /\Ahttp:\/\/localhost(:\d+)?\z/, /\Ahttps?:\/\/(.+?\.)?mlvk\.org\z/
 
         resource '/cors',
           :headers => :any,
