@@ -1,4 +1,4 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
 require 'rails/all'
 
@@ -39,8 +39,5 @@ module InSpiritus
 
     config.time_zone = 'Pacific Time (US & Canada)'
     Time.zone = "Pacific Time (US & Canada)"
-
-    config.active_record.belongs_to_required_by_default = false
-    ActiveSupport.halt_callback_chains_on_return_false = true
   end
 end
