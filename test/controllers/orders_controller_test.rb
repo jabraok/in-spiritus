@@ -13,7 +13,7 @@ class OrdersControllerTest < ActionController::TestCase
 
     assert_equal(Order.sales_order.count, 1)
 
-    post(:duplicate_sales_orders, {fromDate:Date.today, toDate:Date.today + 1})
+    post(:duplicate_sales_orders, params: {fromDate:Date.today, toDate:Date.today + 1})
 
     assert_equal(Order.sales_order.count, 2)
   end

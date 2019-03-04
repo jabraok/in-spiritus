@@ -81,7 +81,7 @@ class RouteVisitsControllerTest < ActionController::TestCase
 
     route_visit = create(:route_visit_with_unfulfilled_fulfillments)
 
-    post :submit, build_submit_payload(route_visit)
+    post :submit, params: build_submit_payload(route_visit)
 
     route_visit.reload
 

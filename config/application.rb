@@ -11,7 +11,7 @@ module InSpiritus
 
     config.middleware.use Rack::Deflater
 
-    config.middleware.insert_before 0, "Rack::Cors", :debug => true, :logger => (-> { Rails.logger }) do
+    config.middleware.insert_before 0, Rack::Cors, :debug => true, :logger => (-> { Rails.logger }) do
       allow do
         origins /\Ahttp:\/\/localhost(:\d+)?\z/, /\Ahttps?:\/\/(.+?\.)?mlvk\.org\z/
 
@@ -29,7 +29,7 @@ module InSpiritus
     end
 
     config.assets.enabled = true
-    config.serve_static_files = true
+    config.public_file_server.enabled = true
 
     config.autoload_paths << "#{Rails.root}/app/resources/concerns"
 
@@ -39,5 +39,8 @@ module InSpiritus
 
     config.time_zone = 'Pacific Time (US & Canada)'
     Time.zone = "Pacific Time (US & Canada)"
+
+    config.active_record.belongs_to_required_by_default = false
+    ActiveSupport.halt_callback_chains_on_return_false = true
   end
 end
