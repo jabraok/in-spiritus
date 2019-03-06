@@ -9,6 +9,9 @@ Bundler.require(*Rails.groups)
 module InSpiritus
   class Application < Rails::Application
 
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.1
+
     config.middleware.use Rack::Deflater
 
     config.middleware.insert_before 0, Rack::Cors, :debug => true, :logger => (-> { Rails.logger }) do
