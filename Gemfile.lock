@@ -915,7 +915,7 @@ GEM
     orm_adapter (0.5.0)
     os (1.0.0)
     pdf-core (0.7.0)
-    pg (0.18.4)
+    pg (1.1.4)
     prawn (2.2.2)
       pdf-core (~> 0.7.0)
       ttfunk (~> 1.5)
@@ -1091,7 +1091,7 @@ DEPENDENCIES
   maxitest
   monadic
   okcomputer
-  pg (= 0.18.4)
+  pg
   prawn
   prawn-svg
   pry
@@ -1115,6 +1115,9 @@ DEPENDENCIES
   webmock
   xeroizer
   zeus
+
+RUBY VERSION
+   ruby 2.3.1p112
 
 BUNDLED WITH
    1.12.5
