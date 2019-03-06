@@ -1,11 +1,10 @@
 source 'https://rubygems.org'
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'rails', '~> 5.1.6'
+ruby '2.3.1'
+
+gem 'rails', '~> 5.2.0'
 gem 'rake'
 gem 'devise'
 gem 'pg', '0.18.4'
@@ -38,6 +37,9 @@ gem 'prawn-svg'
 # Mail
 gem 'mailgun-ruby', require: 'mailgun'
 
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
+
 group :development do
   gem 'spring'
   gem 'rack-livereload'
@@ -62,9 +64,6 @@ group :development, :staging, :test do
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
 end
 
 group :test do
@@ -73,4 +72,10 @@ group :test do
   gem 'fakeredis'
   gem 'spy'
   gem 'maxitest'
+
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '>= 2.15', '< 4.0'
+  gem 'selenium-webdriver'
+  # Easy installation and use of chromedriver to run system tests with Chrome
+  gem 'chromedriver-helper'
 end

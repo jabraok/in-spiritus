@@ -1,7 +1,7 @@
 # ENV['RAILS_ENV'] ||= 'test'
 ENV['RAILS_ENV'] = 'test'
 
-require File.expand_path('../../config/environment', __FILE__)
+require_relative '../config/environment'
 require File.expand_path('../helpers/auth_helpers', __FILE__)
 require File.expand_path('../helpers/request_helpers', __FILE__)
 require File.expand_path('../helpers/resource_helpers', __FILE__)
