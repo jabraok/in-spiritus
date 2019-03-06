@@ -83,3 +83,5 @@ pickle-email-*.html
 .drone.sec.yml
 config/log_config.yml
 public/testing.pdf
+
+.byebug_history
